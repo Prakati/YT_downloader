@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>YouTube Video Downloader</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='youtube_favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222; /* Change the background color as needed */
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+        }
+
+        .container-heading {
+            font-family: 'Pacifico', cursive;
+            font-size: 2em;
+        }
+
+        .description {
+            margin-top: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .form-input {
+            width: 70%;
+            padding: 10px;
+        }
+
+        .my-cta-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50; /* Change the button color as needed */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px; /* Add some spacing between buttons */
+        }
+
+        h2 {
+            color: #4CAF50; /* Change the text color as needed */
+        }
+
+        /* Add styles for the video link and player */
+        a {
+            color: #4CAF50;
+        }
+
+        video {
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Website Title -->
+    <div class="container">
+        <h1 class='container-heading'>YouTube Video Downloader</h1>
+        <div class='description'>
+            <p>Welcome to YouTube Video Downloader Web App</p>
+        </div>
+    </div>
+
+    <!-- Download Area -->
+    <form action="{{ url_for('download')}}" method="post">
+        <br><br><br><br>
+        <input class="form-input" type="text" name="link" size='50' placeholder="Copy link of YouTube video & Paste here" required="required" />
+        <br><br><br>
+        <input type="submit" class="my-cta-button" value="Download Video">
+        <input type="submit" class="my-cta-button" name="mp3" value="Download MP3">
+    </form>
+
+    <!-- Display Video Link and Play Button -->
+    {% if video_link %}
+        <br>
+        <p>Video Link: <a href="{{ video_link }}" target="_blank">{{ video_link }}</a></p>
+        <video controls>
+            <source src="{{ video_link }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+
+    <br>
+    <h2>{{status_text}}</h2>
+</body>
+
+</html>
